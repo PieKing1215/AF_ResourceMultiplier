@@ -3,7 +3,7 @@
 -- (decimals are a chance to get the next integer up, eg. 1.5 means 50/50 chance to get 1x or 2x)
 local globalMultiplier = 1.0
 -- If true, pressing F5 will respawn all depleted resource nodes
-local debugKeybinds = true
+local debugKeybinds = false
 
 -- Multipliers for specific resource node loot tables (cannot go below 1.0)
 -- Ex. if you set "container_woodcrate_office" to 10.0, the wood crates in the office sector will drop 10x the items
