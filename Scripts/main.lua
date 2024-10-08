@@ -158,20 +158,30 @@ function CalculateMultiplier(key)
     return math.min(math.max(mult, 1.0), 100.0)
 end
 
+local hooked = false
 local ignoreHook = false
-RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", function(this, a, b, c)
-    if ignoreHook then
+
+RegisterHook("/Script/Engine.PlayerController:ClientRestart", function (Context) 
+    if hooked then
         return
     end
 
-    local key = this:get().SalvageDropRow.RowName:ToString()
-    local mult = CalculateMultiplier(key)
-    print("DropLoot \"" .. key .. "\" (" .. mult .. "x)\n")
+    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", function(this, a, b, c)
+        if ignoreHook then
+            return
+        end
 
-    local t = this:get()
-    local a,b,c = a:get(),b:get(),c:get()
+        local key = this:get().SalvageDropRow.RowName:ToString()
+        local mult = CalculateMultiplier(key)
+        print("DropLoot \"" .. key .. "\" (" .. mult .. "x)\n")
 
-    DuplicateDrops(t, a, b, c, mult - 1.0)
+        local t = this:get()
+        local a,b,c = a:get(),b:get(),c:get()
+
+        DuplicateDrops(t, a, b, c, mult - 1.0)
+    end)
+
+    hooked = true
 end)
 
 function DuplicateDrops(this, a, b, c, chance)
