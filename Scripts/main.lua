@@ -2,7 +2,8 @@
 -- Multiplier for all resource nodes (cannot go below 1.0)
 -- (decimals are a chance to get the next integer up, eg. 1.5 means 50/50 chance to get 1x or 2x)
 local globalMultiplier = 1.0
--- If true, pressing F5 will respawn all depleted resource nodes
+-- If true, pressing F5 will respawn all depleted resource nodes (for debugging)
+-- WARNING: may cause memory leaks which can lead to crash on world exit 
 local debugKeybinds = false
 
 -- Multipliers for specific resource node loot tables (cannot go below 1.0)
