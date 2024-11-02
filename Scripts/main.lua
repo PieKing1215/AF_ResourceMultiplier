@@ -159,14 +159,10 @@ function CalculateMultiplier(key)
     return math.min(math.max(mult, 1.0), 100.0)
 end
 
-local hooked = false
 local ignoreHook = false
 
-RegisterHook("/Script/Engine.PlayerController:ClientRestart", function (Context) 
-    if hooked then
-        return
-    end
-
+ExecuteInGameThread(function ()
+    LoadAsset("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C")
     RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", function(this, a, b, c)
         if ignoreHook then
             return
@@ -174,19 +170,18 @@ RegisterHook("/Script/Engine.PlayerController:ClientRestart", function (Context)
 
         local key = this:get().SalvageDropRow.RowName:ToString()
         local mult = CalculateMultiplier(key)
-        print("DropLoot \"" .. key .. "\" (" .. mult .. "x)\n")
+        print("[ResourceMultiplier] DropLoot \"" .. key .. "\" (" .. mult .. "x)\n")
 
         local t = this:get()
         local a,b,c = a:get(),b:get(),c:get()
 
         DuplicateDrops(t, a, b, c, mult - 1.0)
     end)
-
-    hooked = true
 end)
 
 function DuplicateDrops(this, a, b, c, chance)
     if math.random() < chance then
+        -- for some reason without this delay it sometimes doesn't work
         ExecuteWithDelay(20, function()
             ExecuteInGameThread(function()
                 ignoreHook = true
@@ -202,11 +197,11 @@ if debugKeybinds then
     RegisterKeyBind(Key.F5, function()
         local nodes = FindAllOf("ResourceNode_ParentBP_C")
         if not nodes then
-            print("No 'ResourceNode_ParentBP_C's found\n")
+            print("[ResourceMultiplier] No 'ResourceNode_ParentBP_C's found\n")
         else
             for i, node in pairs(nodes) do
                 if node.IsDepleted then
-                    print(string.format("Respawning [%d] %s\n", i, node:GetFullName()))
+                    print(string.format("[ResourceMultiplier] Respawning [%d] %s\n", i, node:GetFullName()))
                     node:RespawnResourceNode()
                 end
             end
