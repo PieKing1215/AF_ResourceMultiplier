@@ -2,7 +2,7 @@
 
 [View on NexusMods](https://www.nexusmods.com/abioticfactor/mods/39/)
 
-<img src="https://github.com/PieKing1215/AF_ResourceMultiplier/blob/main/nexus/example.png?raw=true" width="60%"/> <img src="https://github.com/PieKing1215/AF_ResourceMultiplier/blob/main/nexus/crate.png?raw=true" width="35%"/>
+<img src="https://github.com/PieKing1215/AF_ResourceMultiplier/blob/main/nexus/example.png?raw=true" width="45%"/> <img src="https://github.com/PieKing1215/AF_ResourceMultiplier/blob/main/nexus/crate.png?raw=true" width="25.5%"/> <img src="https://github.com/PieKing1215/AF_ResourceMultiplier/blob/main/nexus/bot.png?raw=true" width="28%"/>
 
 Mod for [Abiotic Factor](https://store.steampowered.com/app/427410/Abiotic_Factor/) that lets you specify multipliers for:
 - Drops from resource nodes (eg. crates, PCs, wall pipes, staplers/keyboards/cloth on tables).
