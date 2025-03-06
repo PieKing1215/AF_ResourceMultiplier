@@ -13,6 +13,8 @@ local debugKeybinds = false
 
 local ignoreHook = false
 
+local entitiesReadyToGib = {}
+
 ExecuteInGameThread(function ()
     LoadAsset("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C")
 
@@ -42,6 +44,8 @@ ExecuteInGameThread(function ()
 
         local this = this:get()
 
+        entitiesReadyToGib[this:GetFName():ToString()] = true
+
         local key = this.NPCDataTableRow.RowName:ToString()
         local mult = config.drop_multiplier(key)
         print("[ResourceMultiplier] Multiplying NPC drops: \"" .. key .. "\" (" .. mult .. "x)\n")
@@ -57,8 +61,14 @@ ExecuteInGameThread(function ()
         end
 
         local this = this:get()
+
+        if entitiesReadyToGib[this:GetFName():ToString()] == nil then
+            return
+        end
+
         local DamageType, Attacker, ForceOnlyScrap, ForceGibNPC = DamageType:get(), Attacker:get(), ForceOnlyScrap:get(), ForceGibNPC:get()
         if this.IsGibbed and DamageType.CanGib then
+            entitiesReadyToGib[this:GetFName():ToString()] = nil
 
             local key = this.NPCDataTableRow.RowName:ToString()
             local mult = config.corpse_multiplier(key)
