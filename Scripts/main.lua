@@ -1,3 +1,4 @@
+---@diagnostic disable: redefined-local
 
 -- If you're looking to configure the mod, you should edit the config files
 -- located in AbioticFactor/Binaries/Win64/ResourceMultiplier_###.toml
@@ -15,20 +16,20 @@ local ignoreHook = false
 ExecuteInGameThread(function ()
     LoadAsset("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C")
 
-    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", function(this, a, b, c)
+    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", function(this, TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
         if ignoreHook then
             return
         end
 
         local this = this:get()
-        local a,b,c = a:get(),b:get(),c:get()
+        local TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage = TryToPlaceInInventory:get(), inventoryOwner:get(), IsNotReceivingDamage:get()
 
         local key = this.SalvageDropRow.RowName:ToString()
         local mult = config.node_multiplier(key)
         print("[ResourceMultiplier] Multiplying ResourceNode drops: \"" .. key .. "\" (" .. mult .. "x)\n")
 
         Duplicate(mult - 1.0, function()
-            this:DropLoot(a, b, c)
+            this:DropLoot(TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
         end)
     end)
 
@@ -50,24 +51,26 @@ ExecuteInGameThread(function ()
         end)
     end)
 
-    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C:TryGibbingNPC", function(this, a, b, c, d)
+    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C:TryGibbingNPC", function(this, DamageType, Attacker, ForceOnlyScrap, ForceGibNPC)
         if ignoreHook then
             return
         end
 
         local this = this:get()
-        local a,b,c,d = a:get(),b:get(),c:get(),d:get()
+        local DamageType, Attacker, ForceOnlyScrap, ForceGibNPC = DamageType:get(), Attacker:get(), ForceOnlyScrap:get(), ForceGibNPC:get()
+        if this.IsGibbed and DamageType.CanGib then
 
-        local key = this.NPCDataTableRow.RowName:ToString()
-        local mult = config.corpse_multiplier(key)
-        print("[ResourceMultiplier] Multiplying corpse drops: \"" .. key .. "\" (" .. mult .. "x)\n")
+            local key = this.NPCDataTableRow.RowName:ToString()
+            local mult = config.corpse_multiplier(key)
+            print("[ResourceMultiplier] Multiplying corpse drops: \"" .. key .. "\" (" .. mult .. "x)\n")
 
-        Duplicate(mult - 1.0, function()
-            if this.IsGibbed then
-                this.IsGibbed = false
-                this:TryGibbingNPC(a, b, c, true)
-            end
-        end)
+            Duplicate(mult - 1.0, function()
+                if this.IsGibbed then
+                    this.IsGibbed = false
+                    this:TryGibbingNPC(DamageType, Attacker, ForceOnlyScrap, true)
+                end
+            end)
+        end
     end)
 end)
 
@@ -111,6 +114,7 @@ if debugKeybinds then
                 node.SpawnCooldownDays_Default = 0
                 node:SetSpawnOnCooldown(0.0, 0)
                 node:DebugSpawn()
+                node:ToggleSpawnDebug(true)
             end
         end
     end)
