@@ -25,10 +25,10 @@ end
 local function save_nodes()
     print("[ResourceMultiplier] Saving " .. nodesPath)
 
-    local nodesFile = io.open(nodesPath, "w")
+    local nodesFile, err, errno = io.open(nodesPath, "w")
 
     if nodesFile == nil then
-        print("[ResourceMultiplier] nodesFile was nil")
+        print("[ResourceMultiplier] Nodes config failed to write:", err, errno)
         return
     end
 
@@ -119,10 +119,11 @@ end
 local function load_nodes()
     print("[ResourceMultiplier] Loading " .. nodesPath)
 
-    local nodesFile = io.open(nodesPath, "r")
+    local nodesFile, err, errno = io.open(nodesPath, "r")
 
     if nodesFile == nil then
-        print("[ResourceMultiplier] Nodes config missing, regenerating")
+        print("[ResourceMultiplier] Nodes config failed to load:", err, errno)
+        print("[ResourceMultiplier] Regenerating...")
         save_nodes()
         return
     end
@@ -159,10 +160,10 @@ end
 local function save_drops()
     print("[ResourceMultiplier] Saving " .. dropsPath)
 
-    local dropsFile = io.open(dropsPath, "w")
+    local dropsFile, err, errno = io.open(dropsPath, "w")
 
     if dropsFile == nil then
-        print("[ResourceMultiplier] dropsFile was nil")
+        print("[ResourceMultiplier] Drops config failed to write:", err, errno)
         return
     end
 
@@ -253,10 +254,11 @@ end
 local function load_drops()
     print("[ResourceMultiplier] Loading " .. dropsPath)
 
-    local dropsFile = io.open(dropsPath, "r")
+    local dropsFile, err, errno = io.open(dropsPath, "r")
 
     if dropsFile == nil then
-        print("[ResourceMultiplier] Drops config missing, regenerating")
+        print("[ResourceMultiplier] Drops config failed to load:", err, errno)
+        print("[ResourceMultiplier] Regenerating...")
         save_drops()
         return
     end
@@ -293,10 +295,10 @@ end
 local function save_corpses()
     print("[ResourceMultiplier] Saving " .. corpsesPath)
 
-    local corpsesFile = io.open(corpsesPath, "w")
+    local corpsesFile, err, errno = io.open(corpsesPath, "w")
 
     if corpsesFile == nil then
-        print("[ResourceMultiplier] corpsesFile was nil")
+        print("[ResourceMultiplier] Corpses config failed to write:", err, errno)
         return
     end
 
@@ -387,10 +389,11 @@ end
 local function load_corpses()
     print("[ResourceMultiplier] Loading " .. corpsesPath)
 
-    local corpsesFile = io.open(corpsesPath, "r")
+    local corpsesFile, err, errno = io.open(corpsesPath, "r")
 
     if corpsesFile == nil then
-        print("[ResourceMultiplier] Corpses config missing, regenerating")
+        print("[ResourceMultiplier] Corpses config failed to load:", err, errno)
+        print("[ResourceMultiplier] Regenerating...")
         save_corpses()
         return
     end
