@@ -23,14 +23,7 @@ local function max_len(tbl)
 end
 
 local function save_nodes()
-    print("[ResourceMultiplier] Saving " .. nodesPath)
-
-    local nodesFile, err, errno = io.open(nodesPath, "w")
-
-    if nodesFile == nil then
-        print("[ResourceMultiplier] Nodes config failed to write:", err, errno)
-        return
-    end
+    print("[ResourceMultiplier] Saving " .. nodesPath, "\n")
 
     local text = ""
     text = text .. "# This file lets you configure drop rates for Resource Nodes.\n"
@@ -112,18 +105,24 @@ local function save_nodes()
         text = text .. ("%s%s # %s\n"):format(str, pad, v)
     end
 
+    local nodesFile, err, errno = io.open(nodesPath, "w")
+
+    if nodesFile == nil then
+        print("[ResourceMultiplier] Nodes config failed to write:", err, errno, "\n")
+        return
+    end
     nodesFile:write(text)
     nodesFile:close()
 end
 
 local function load_nodes()
-    print("[ResourceMultiplier] Loading " .. nodesPath)
+    print("[ResourceMultiplier] Loading " .. nodesPath, "\n")
 
     local nodesFile, err, errno = io.open(nodesPath, "r")
 
     if nodesFile == nil then
-        print("[ResourceMultiplier] Nodes config failed to load:", err, errno)
-        print("[ResourceMultiplier] Regenerating...")
+        print("[ResourceMultiplier] Nodes config failed to load:", err, errno, "\n")
+        print("[ResourceMultiplier] Regenerating...", "\n")
         save_nodes()
         return
     end
@@ -132,7 +131,7 @@ local function load_nodes()
 
     -- if file is empty, regenerate it
     if text == "" then
-        print("[ResourceMultiplier] Nodes config was empty, regenerating")
+        print("[ResourceMultiplier] Nodes config was empty, regenerating", "\n")
         nodesFile:close()
         save_nodes()
         return
@@ -158,14 +157,7 @@ local function load_nodes()
 end
 
 local function save_drops()
-    print("[ResourceMultiplier] Saving " .. dropsPath)
-
-    local dropsFile, err, errno = io.open(dropsPath, "w")
-
-    if dropsFile == nil then
-        print("[ResourceMultiplier] Drops config failed to write:", err, errno)
-        return
-    end
+    print("[ResourceMultiplier] Saving " .. dropsPath, "\n")
 
     local text = ""
     text = text .. "# This file lets you configure drop rates for NPC drops.\n"
@@ -247,18 +239,24 @@ local function save_drops()
         text = text .. ("%s%s # %s\n"):format(str, pad, v)
     end
 
+    local dropsFile, err, errno = io.open(dropsPath, "w")
+
+    if dropsFile == nil then
+        print("[ResourceMultiplier] Drops config failed to write:", err, errno, "\n")
+        return
+    end
     dropsFile:write(text)
     dropsFile:close()
 end
 
 local function load_drops()
-    print("[ResourceMultiplier] Loading " .. dropsPath)
+    print("[ResourceMultiplier] Loading " .. dropsPath, "\n")
 
     local dropsFile, err, errno = io.open(dropsPath, "r")
 
     if dropsFile == nil then
-        print("[ResourceMultiplier] Drops config failed to load:", err, errno)
-        print("[ResourceMultiplier] Regenerating...")
+        print("[ResourceMultiplier] Drops config failed to load:", err, errno, "\n")
+        print("[ResourceMultiplier] Regenerating...", "\n")
         save_drops()
         return
     end
@@ -267,7 +265,7 @@ local function load_drops()
 
     -- if file is empty, regenerate it
     if text == "" then
-        print("[ResourceMultiplier] Drops config was empty, regenerating")
+        print("[ResourceMultiplier] Drops config was empty, regenerating", "\n")
         dropsFile:close()
         save_drops()
         return
@@ -293,14 +291,7 @@ local function load_drops()
 end
 
 local function save_corpses()
-    print("[ResourceMultiplier] Saving " .. corpsesPath)
-
-    local corpsesFile, err, errno = io.open(corpsesPath, "w")
-
-    if corpsesFile == nil then
-        print("[ResourceMultiplier] Corpses config failed to write:", err, errno)
-        return
-    end
+    print("[ResourceMultiplier] Saving " .. corpsesPath, "\n")
 
     local text = ""
     text = text .. "# This file lets you configure drop rates for NPC corpses.\n"
@@ -382,18 +373,24 @@ local function save_corpses()
         text = text .. ("%s%s # %s\n"):format(str, pad, v)
     end
 
+    local corpsesFile, err, errno = io.open(corpsesPath, "w")
+
+    if corpsesFile == nil then
+        print("[ResourceMultiplier] Corpses config failed to write:", err, errno, "\n")
+        return
+    end
     corpsesFile:write(text)
     corpsesFile:close()
 end
 
 local function load_corpses()
-    print("[ResourceMultiplier] Loading " .. corpsesPath)
+    print("[ResourceMultiplier] Loading " .. corpsesPath, "\n")
 
     local corpsesFile, err, errno = io.open(corpsesPath, "r")
 
     if corpsesFile == nil then
-        print("[ResourceMultiplier] Corpses config failed to load:", err, errno)
-        print("[ResourceMultiplier] Regenerating...")
+        print("[ResourceMultiplier] Corpses config failed to load:", err, errno, "\n")
+        print("[ResourceMultiplier] Regenerating...", "\n")
         save_corpses()
         return
     end
@@ -402,7 +399,7 @@ local function load_corpses()
 
     -- if file is empty, regenerate it
     if text == "" then
-        print("[ResourceMultiplier] corpses config was empty, regenerating")
+        print("[ResourceMultiplier] corpses config was empty, regenerating", "\n")
         corpsesFile:close()
         save_corpses()
         return
@@ -434,7 +431,7 @@ local function save()
 end
 
 local function load()
-    print("[ResourceMultiplier] Loading config...")
+    print("[ResourceMultiplier] Loading config...", "\n")
 
     load_nodes()
     load_drops()
