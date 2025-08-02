@@ -1,5 +1,7 @@
 local data = require("data")
 
+local debugConfig = true
+
 -- not really toml but we get syntax highlighting
 local nodesPath = "ResourceMultiplier_nodes.toml"
 local dropsPath = "ResourceMultiplier_drops.toml"
@@ -41,13 +43,25 @@ local function save_nodes()
 
     -- fill in edited entries
 
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes A\n")
+    end
+
     local keys = {}
 
     for k, _ in pairs(nodeMultipliers) do
         table.insert(keys, k)
     end
 
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes B\n")
+    end
+
     table.sort(keys)
+
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes C\n")
+    end
 
     local formatted = {}
 
@@ -56,7 +70,15 @@ local function save_nodes()
         table.insert(formatted, ("%s = %f"):format(k, nodeMultipliers[k]))
     end
 
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes D\n")
+    end
+
     local len = max_len(formatted)
+
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes E\n")
+    end
 
     for i = 1, #keys do
         local k = keys[i]
@@ -72,8 +94,16 @@ local function save_nodes()
         end
     end
 
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes F\n")
+    end
+
     if next(nodeMultipliers) ~= nil then
         text = text .. "\n"
+    end
+
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes G\n")
     end
 
     -- fill in any missing entries
@@ -86,7 +116,15 @@ local function save_nodes()
         end
     end
 
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes H\n")
+    end
+
     table.sort(keys)
+
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes I\n")
+    end
 
     formatted = {}
 
@@ -94,7 +132,15 @@ local function save_nodes()
         table.insert(formatted, ("%s = %f"):format(keys[i], 1.0))
     end
 
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes J\n")
+    end
+
     len = max_len(formatted)
+
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes K\n")
+    end
 
     for i = 1, #keys do
         local k = keys[i]
@@ -105,6 +151,10 @@ local function save_nodes()
         text = text .. ("%s%s # %s\n"):format(str, pad, v)
     end
 
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes L\n")
+    end
+
     local nodesFile, err, errno = io.open(nodesPath, "w")
 
     if nodesFile == nil then
@@ -113,6 +163,10 @@ local function save_nodes()
     end
     nodesFile:write(text)
     nodesFile:close()
+
+    if debugConfig then
+        print("[ResourceMultiplier] save_nodes done\n")
+    end
 end
 
 local function load_nodes()
