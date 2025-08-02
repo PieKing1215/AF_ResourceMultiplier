@@ -2,7 +2,7 @@
 -- If you're looking to configure the mod, you should edit the config files
 -- located in AbioticFactor/Binaries/Win64/ResourceMultiplier_###.toml
 
--- Data last generated on version 0.10.0.15580
+-- Data last generated on version 1.0.0.20184
 
 local nodes_comments = {
     ["container_minecrate"] = "MineCrate - (woodplank, scrap_cloth, chains, rebar, hose, pickaxe, ammo_disc, steelcable)",
