@@ -17,9 +17,8 @@ local entitiesReadyToGib = {}
 
 ExecuteInGameThread(function ()
     LoadAsset("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C")
-    LoadAsset("/Game/Blueprints/Environment/Nodes/ResourceNode_GlassPane.ResourceNode_GlassPane_C")
 
-    local hookNodeDropLoot = function(this, TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
+    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", function(this, TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
         if ignoreHook then
             return
         end
@@ -34,16 +33,11 @@ ExecuteInGameThread(function ()
         Duplicate(mult - 1.0, function()
             this:DropLoot(TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
         end)
-    end
-
-    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", hookNodeDropLoot)
-    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_GlassPane.ResourceNode_GlassPane_C:DropLoot", hookNodeDropLoot)
+    end)
 
     LoadAsset("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C")
-    LoadAsset("/Game/Blueprints/Characters/NPCs/NPC_LabRat.NPC_LabRat_C")
-    LoadAsset("/Game/Blueprints/Characters/NPCs/NPC_Soldier_Captain.NPC_Soldier_Captain_C")
 
-    local hookNPCDropLoot = function(this)
+    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C:DropLoot", function(this)
         if ignoreHook then
             return
         end
@@ -59,11 +53,7 @@ ExecuteInGameThread(function ()
         Duplicate(mult - 1.0, function()
             this:DropLoot()
         end)
-    end
-
-    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C:DropLoot", hookNPCDropLoot)
-    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_LabRat.NPC_LabRat_C:DropLoot", hookNPCDropLoot)
-    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Soldier_Captain.NPC_Soldier_Captain_C:DropLoot", hookNPCDropLoot)
+    end)
 
     RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C:TryGibbingNPC", function(this, DamageType, Attacker, ForceOnlyScrap, ForceGibNPC)
         if ignoreHook then
