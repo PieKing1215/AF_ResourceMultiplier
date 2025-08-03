@@ -203,7 +203,11 @@ local function load_nodes()
                 nodeGlobalMultiplier = n
             else
                 if n ~= 1.0 or data.nodes_comments[k] == nil then
-                    nodeMultipliers[k] = n
+                    if type(k) == "string" then
+                        nodeMultipliers[k] = n
+                    else
+                        print("[ResourceMultiplier] Not inserting non-string key into nodeMultipliers:", k, "\n")
+                    end
                 end
             end
         end
@@ -341,7 +345,11 @@ local function load_drops()
                 dropGlobalMultiplier = n
             else
                 if n ~= 1.0 or data.drops_comments[k] == nil then
-                    dropMultipliers[k] = n
+                    if type(k) == "string" then
+                        dropMultipliers[k] = n
+                    else
+                        print("[ResourceMultiplier] Not inserting non-string key into dropMultipliers:", k, "\n")
+                    end
                 end
             end
         end
@@ -479,7 +487,11 @@ local function load_corpses()
                 corpseGlobalMultiplier = n
             else
                 if n ~= 1.0 or data.corpse_comments[k] == nil then
-                    corpseMultipliers[k] = n
+                    if type(k) == "string" then
+                        corpseMultipliers[k] = n
+                    else
+                        print("[ResourceMultiplier] Not inserting non-string key into corpseMultipliers:", k, "\n")
+                    end
                 end
             end
         end
