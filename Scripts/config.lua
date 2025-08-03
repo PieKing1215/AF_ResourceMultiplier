@@ -50,7 +50,11 @@ local function save_nodes()
     local keys = {}
 
     for k, _ in pairs(nodeMultipliers) do
-        table.insert(keys, k)
+        if type(k) == "string" then
+            table.insert(keys, k)
+        else
+            print("[ResourceMultiplier] Ignoring non-string key in nodeMultipliers:", k, "\n")
+        end
     end
 
     if debugConfig then
@@ -232,7 +236,11 @@ local function save_drops()
     local keys = {}
 
     for k, _ in pairs(dropMultipliers) do
-        table.insert(keys, k)
+        if type(k) == "string" then
+            table.insert(keys, k)
+        else
+            print("[ResourceMultiplier] Ignoring non-string key in dropMultipliers:", k, "\n")
+        end
     end
 
     table.sort(keys)
@@ -366,7 +374,11 @@ local function save_corpses()
     local keys = {}
 
     for k, _ in pairs(corpseMultipliers) do
-        table.insert(keys, k)
+        if type(k) == "string" then
+            table.insert(keys, k)
+        else
+            print("[ResourceMultiplier] Ignoring non-string key in corpseMultipliers:", k, "\n")
+        end
     end
 
     table.sort(keys)
