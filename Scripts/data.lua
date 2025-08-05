@@ -1,6 +1,7 @@
--- This file is not for manual editing
--- If you're looking to configure the mod, you should edit the config files
--- located in AbioticFactor/Binaries/Win64/ResourceMultiplier_###.toml
+-- !!! This file is not how you configure the mod !!!
+-- Config files are generated after loading the mod for the first time
+-- at AbioticFactor/Binaries/Win64/ResourceMultiplier_###.toml
+-- (restart the game to apply changes)
 
 -- Data last generated on version 1.0.0.20184
 
