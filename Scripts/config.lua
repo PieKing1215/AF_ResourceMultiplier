@@ -560,8 +560,14 @@ end
 local function node_multiplier(key)
     local mult = nodeGlobalMultiplier
 
+    -- the node ids extracted from the data tables are mostly all lowercase (though not always, eg. "resourcenode_IS_0003")
+    -- but in some cases the game will use a capitalized version that isn't technically correct (eg. "ResourceNode_AnteverseBug", "ResourceNode_Hydropanel")
+    -- so here we check both the "correct" capitalization and all lowercase
+    -- though this would still fail if the game dropped eg. "ResourceNode_IS_0003"
     if type(nodeMultipliers[key]) == "number" then
         mult = mult * nodeMultipliers[key]
+    elseif type(key) == "string" and type(nodeMultipliers[key:lower()]) == "number" then
+        mult = mult * nodeMultipliers[key:lower()]
     end
 
     return math.min(math.max(mult, 1.0), 100.0)
