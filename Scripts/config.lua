@@ -16,6 +16,41 @@ local dropMultipliers = {}
 local corpseGlobalMultiplier = 1.0
 local corpseMultipliers = {}
 
+if debugConfig then
+    nodeMultipliers = setmetatable({}, {
+        __newindex = function(t, key, value)
+            if type(key) ~= "string" then
+                print("Non-string key inserted into nodeMultipliers:", key, "type:", type(key), "value:", value, "\n")
+                print(debug.traceback(), "\n")
+            else
+                rawset(t, key, value)
+            end
+        end
+    })
+
+    dropMultipliers = setmetatable({}, {
+        __newindex = function(t, key, value)
+            if type(key) ~= "string" then
+                print("Non-string key inserted into dropMultipliers:", key, "type:", type(key), "value:", value, "\n")
+                print(debug.traceback(), "\n")
+            else
+                rawset(t, key, value)
+            end
+        end
+    })
+
+    corpseMultipliers = setmetatable({}, {
+        __newindex = function(t, key, value)
+            if type(key) ~= "string" then
+                print("Non-string key inserted into corpseMultipliers:", key, "type:", type(key), "value:", value, "\n")
+                print(debug.traceback(), "\n")
+            else
+                rawset(t, key, value)
+            end
+        end
+    })
+end
+
 local function max_len(tbl)
     local max = 0
     for k,v in pairs(tbl) do
