@@ -32,6 +32,12 @@ ExecuteInGameThread(function ()
         local TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage = TryToPlaceInInventory:get(), inventoryOwner:get(), IsNotReceivingDamage:get()
 
         local key = this.SalvageDropRow.RowName:ToString()
+
+        -- space queen pickups handled separately
+        if key == "None" and string.find(this:GetFullName(), "Pickup_VWinter") then
+            return
+        end
+
         local mult = config.node_multiplier(key)
         print("[ResourceMultiplier] Multiplying ResourceNode drops: \"" .. key .. "\" (" .. mult .. "x)\n")
 
@@ -42,6 +48,34 @@ ExecuteInGameThread(function ()
 
     RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", hookNodeDropLoot)
     -- RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_GlassPane.ResourceNode_GlassPane_C:DropLoot", hookNodeDropLoot)
+
+    -- space queen pickups
+
+    LoadAsset("/Game/Blueprints/Environment/VWinter/ArcadePickup_ParentBP.ArcadePickup_ParentBP_C")
+
+    RegisterHook("/Game/Blueprints/Environment/VWinter/ArcadePickup_ParentBP.ArcadePickup_ParentBP_C:OnPickupByCharacter", function(this, Character)
+        if ignoreHook then
+            return
+        end
+
+        local this = this:get()
+        local Character = Character:get()
+
+        local mult = 1
+
+        local name = this:GetFullName()
+        if string.find(name, "Coin") then
+            mult = config.node_multiplier("spacequeen_coin")
+            print("[ResourceMultiplier] Multiplying ResourceNode drops: \"spacequeen_coin\" (" .. mult .. "x)\n")
+        elseif string.find(name, "Star") then
+            mult = config.node_multiplier("spacequeen_crown")
+            print("[ResourceMultiplier] Multiplying ResourceNode drops: \"spacequeen_crown\" (" .. mult .. "x)\n")
+        end
+
+        Duplicate(mult - 1.0, function()
+            this:OnPickupByCharacter(Character)
+        end)
+    end)
 
     -- NPC drops
 

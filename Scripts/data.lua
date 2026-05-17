@@ -203,6 +203,8 @@ local nodes_comments = {
     ["salvage_militarycot"] = "MicroNode_MilitaryCot - (Deployable_Cot_Military)",
     ["salvage_tomatoseeds"] = "MicroNode_SeedsTomato - (seed_tomato)",
     ["tutorial_clothcrate"] = "TUTORIAL_CRATE - (scrap_cloth, scrap_cloth)",
+    ["spacequeen_coin"] = "Royal Coin (only gives extra items, does not affect completion)", -- (note: this key is made up since space queen pickups are handled specially)
+    ["spacequeen_crown"] = "Royal Crown (only gives extra items, does not affect completion)", -- (note: this key is made up since space queen pickups are handled specially)
 }
 
 local drops_comments = {
