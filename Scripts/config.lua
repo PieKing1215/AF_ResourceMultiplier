@@ -265,12 +265,25 @@ local corpses = mk_multiplier_type(
     "an NPC corpse is destroyed"
 )
 
+local fish = mk_multiplier_type(
+    "fish",
+    "ResourceMultiplier_fish.toml",
+    data.fish_comments,
+    -- header fill in the blanks
+    "Fish",
+    "only fish caught when fishing and not junk, due to ue4ss limitations",
+    "fish",
+    "fish types",
+    "a fish is caught"
+)
+
 -- exports
 
 local function save()
     nodes.save()
     drops.save()
     corpses.save()
+    fish.save()
 end
 
 local function load()
@@ -279,6 +292,7 @@ local function load()
     nodes.load()
     drops.load()
     corpses.load()
+    fish.load()
 end
 
 return {
@@ -287,4 +301,5 @@ return {
     node_multiplier = nodes.get,
     drop_multiplier = drops.get,
     corpse_multiplier = corpses.get,
+    fish_multiplier = fish.get,
 }
