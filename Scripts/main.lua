@@ -21,8 +21,9 @@ ExecuteInGameThread(function ()
     -- resource nodes
 
     LoadAsset("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C")
+    -- LoadAsset("/Game/Blueprints/Environment/Nodes/ResourceNode_GlassPane.ResourceNode_GlassPane_C")
 
-    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", function(this, TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
+    local hookNodeDropLoot = function(this, TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
         if ignoreHook then
             return
         end
@@ -37,12 +38,19 @@ ExecuteInGameThread(function ()
         Duplicate(mult - 1.0, function()
             this:DropLoot(TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage)
         end)
+    end
+
+    RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_ParentBP.ResourceNode_ParentBP_C:DropLoot", hookNodeDropLoot)
+    -- RegisterHook("/Game/Blueprints/Environment/Nodes/ResourceNode_GlassPane.ResourceNode_GlassPane_C:DropLoot", hookNodeDropLoot)
 
     -- NPC drops
 
     LoadAsset("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C")
+    -- LoadAsset("/Game/Blueprints/Characters/NPCs/NPC_LabRat.NPC_LabRat_C")
+    -- LoadAsset("/Game/Blueprints/Characters/NPCs/NPC_Sapper.NPC_Sapper_C")
+    -- LoadAsset("/Game/Blueprints/Characters/NPCs/NPC_Soldier_Captain.NPC_Soldier_Captain_C")
 
-    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C:DropLoot", function(this)
+    local hookNPCDropLoot = function(this)
         if ignoreHook then
             return
         end
@@ -58,6 +66,12 @@ ExecuteInGameThread(function ()
         Duplicate(mult - 1.0, function()
             this:DropLoot()
         end)
+    end
+
+    RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Base_ParentBP.NPC_Base_ParentBP_C:DropLoot", hookNPCDropLoot)
+    -- RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_LabRat.NPC_LabRat_C:DropLoot", hookNPCDropLoot)
+    -- RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Sapper.NPC_Sapper_C:DropLoot", hookNPCDropLoot)
+    -- RegisterHook("/Game/Blueprints/Characters/NPCs/NPC_Soldier_Captain.NPC_Soldier_Captain_C:DropLoot", hookNPCDropLoot)
 
     -- corpse drops
 
