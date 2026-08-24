@@ -93,7 +93,7 @@ ExecuteInGameThread(function ()
 
         entitiesReadyToGib[this:GetFName():ToString()] = true
 
-        local key = this.NPCDataTableRow.RowName:ToString()
+        local key = this.NPCDataTableRow:ToString()
         local mult = config.drop_multiplier(key)
         print("[ResourceMultiplier] Multiplying NPC drops: \"" .. key .. "\" (" .. mult .. "x)\n")
 
@@ -124,7 +124,7 @@ ExecuteInGameThread(function ()
         if this.IsGibbed and DamageType.CanGib then
             entitiesReadyToGib[this:GetFName():ToString()] = nil
 
-            local key = this.NPCDataTableRow.RowName:ToString()
+            local key = this.NPCDataTableRow:ToString()
             local mult = config.corpse_multiplier(key)
             print("[ResourceMultiplier] Multiplying corpse drops: \"" .. key .. "\" (" .. mult .. "x)\n")
 
