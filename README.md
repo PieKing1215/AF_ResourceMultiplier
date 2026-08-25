@@ -7,8 +7,9 @@
 Mod for [Abiotic Factor](https://store.steampowered.com/app/427410/Abiotic_Factor/) that lets you specify multipliers for:
 - Drops from resource nodes (eg. crates, PCs, wall pipes, staplers/keyboards/cloth on tables).
 - Drops when an NPC is killed (eg. robot CPUs/sodas, grunt ammo/military scrap)
+  - Note: certain NPCs have special DropLoot logic that is currently not multiplied due to UE4SS limitations (eg. Lab Rat, Order Captain, Sapper)
 - Drops when an NPC's corpse is chopped (eg. robot metal/tech scrap, grunt arms/skulls, various meats)
-- Fish caught when fishing (junk cannot be multiplied due to ue4ss limitations)
+- Fish caught when fishing (junk currently cannot be multiplied due to ue4ss limitations)
 
 You can set global multipliers and/or multipliers for individual loot tables/NPCs.<br/>
 
