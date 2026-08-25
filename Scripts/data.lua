@@ -3,7 +3,7 @@
 -- at AbioticFactor/Binaries/Win64/ResourceMultiplier_###.toml
 -- (restart the game to apply changes)
 
--- Data last generated on version 1.3.0.26036
+-- Data last generated on version 1.4.0.28206
 
 local nodes_comments = {
     ["container_minecrate"] = "MineCrate - (woodplank, scrap_cloth, chains, rebar, hose, pickaxe, ammo_disc, steelcable)",
@@ -239,6 +239,7 @@ local drops_comments = {
     ["Pillager_Musketeer"] = "Guard - (scrap_silver, crossbow_broken)",
     ["Pillager_Musketeer_GUARD"] = "Guard - (scrap_silver, crossbow_broken)",
     ["Pillager_Preacher_Niketas"] = "Niketas - (scrap_silver, salem_book_04)",
+    ["WinterSprite_BOSS"] = "Bigogi - (food_lamogi_corrupted)",
     ["Larva_BOSS"] = "Nyth the Gluttonous - (core_fragment, gib_meat_larva, gib_meat_larva, gib_meat_larva, fig_larvaorange)",
     ["Gatekeeper_Heavy_BANNER"] = "Gatekeeper Jotun - (scrap_arcane, key_gatekeeper, ammo_308, lodestone_fragment)",
     ["Grunt_LabRat_Mechanic"] = "Garage Rat - (pipewrench, key_ornate, scrap_order, cpu_gold, oil)",
@@ -342,6 +343,8 @@ local corpse_comments = {
     ["Pest_Carbonated"] = "Carbonated Pest - (gib_pest_body, gib_pest_tail)",
     ["Skink_Magma"] = "Magma Skink - (gib_skink_skull, food_meat_skink_burnt, gel, fishbones)",
     ["Skink_Magma_Crafted"] = "Magma Skink - (gib_skink_skull, food_meat_skink_burnt, gel, fishbones)",
+    ["Skink_Mushroom"] = "Verdant Skink - (gib_skink_skull, gib_meat_skink, greenliver, fishbones, fish_rad)",
+    ["Skink_Mushroom_Crafted"] = "Verdant Skink - (gib_skink_skull, gib_meat_skink, greenliver, fishbones, fish_rad)",
 }
 
 local fish_comments = {
