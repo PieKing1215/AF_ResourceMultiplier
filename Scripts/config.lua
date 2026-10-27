@@ -270,11 +270,11 @@ local fish = mk_multiplier_type(
     "ResourceMultiplier_fish.toml",
     data.fish_comments,
     -- header fill in the blanks
-    "Fish",
-    "only fish caught when fishing and not junk, due to ue4ss limitations",
-    "fish",
-    "fish types",
-    "a fish is caught"
+    "Fishing",
+    "both fish and junk caught when fishing",
+    "fish/junk",
+    "fish types/junk pools",
+    "a fish/junk is caught"
 )
 
 -- exports
