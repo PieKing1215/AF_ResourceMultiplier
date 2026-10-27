@@ -31,7 +31,11 @@ ExecuteInGameThread(function ()
         local this = this:get()
         local TryToPlaceInInventory, inventoryOwner, IsNotReceivingDamage = TryToPlaceInInventory:get(), inventoryOwner:get(), IsNotReceivingDamage:get()
 
+        -- seems like in 1.5 SalvageDropRow is usually (always?) "None" and DropRow the actual value now
         local key = this.SalvageDropRow.RowName:ToString()
+        if key == "None" then
+            key = this.DropRow.RowName:ToString()
+        end
 
         -- space queen pickups handled separately
         if key == "None" and string.find(this:GetFullName(), "Pickup_VWinter") then
@@ -93,7 +97,7 @@ ExecuteInGameThread(function ()
 
         entitiesReadyToGib[this:GetFName():ToString()] = true
 
-        local key = this.NPCDataTableRow:ToString()
+        local key = this.NPCRow.RowName:ToString()
         local mult = config.drop_multiplier(key)
         print("[ResourceMultiplier] Multiplying NPC drops: \"" .. key .. "\" (" .. mult .. "x)\n")
 
@@ -124,7 +128,7 @@ ExecuteInGameThread(function ()
         if this.IsGibbed and DamageType.CanGib then
             entitiesReadyToGib[this:GetFName():ToString()] = nil
 
-            local key = this.NPCDataTableRow:ToString()
+            local key = this.NPCRow.RowName:ToString()
             local mult = config.corpse_multiplier(key)
             print("[ResourceMultiplier] Multiplying corpse drops: \"" .. key .. "\" (" .. mult .. "x)\n")
 
